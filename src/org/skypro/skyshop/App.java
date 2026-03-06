@@ -1,11 +1,9 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.FixPriceProduct;
-import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.*;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class App {
@@ -21,6 +19,9 @@ public class App {
         }
         return local;
     }
+
+
+
 
     public static void main() {
 //        Добавление продукта в корзину. 1
@@ -121,6 +122,34 @@ public class App {
 
         System.out.println("-Печать содержимого корзины с разными товарами товарами.---3");
         basketRandomType.printInfoAboutBasket();
+
+//        System.out.println("wire.getStringRepresentation(wire) = " + wire.getStringRepresentation(wire));
+
+        SearchEngine  searchEngine = new SearchEngine(5);
+        searchEngine.add(wire);
+        searchEngine.add(reebokPants);
+        searchEngine.add(reebokTapki);
+        searchEngine.add(tea);
+        searchEngine.add( product1);
+
+        System.out.println(Arrays.toString(searchEngine.search("Reebok")));
+
+        Article article = new Article("Объявление:", "Ручка от шкафа");
+        Article article2 = new Article("Объявление:", "Полка от комода");
+        Article article3 = new Article("Объявление:", "Ручка от двери");
+        Article article4 = new Article("Объявление:", "Ручка от комода");
+        Article article5 = new Article("Объявление:", "Полка от шкафа");
+
+        SearchEngine searchArticle = new SearchEngine(5);
+        searchArticle.add(tea);
+        searchArticle.add(article2);
+        searchArticle.add(article5);
+        searchArticle.add(article);
+        searchArticle.add(wire);
+
+        System.out.println(Arrays.toString(searchArticle.search("Ручка")));
+        System.out.println(Arrays.toString(searchArticle.search("Полка")));
+        System.out.println(Arrays.toString(searchArticle.search("шкафа")));
 
 
 
