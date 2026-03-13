@@ -21,8 +21,6 @@ public class App {
     }
 
 
-
-
     public static void main() {
 //        Добавление продукта в корзину. 1
         Product[] randomBasket = initialProducts();
@@ -125,12 +123,12 @@ public class App {
 
 //        System.out.println("wire.getStringRepresentation(wire) = " + wire.getStringRepresentation(wire));
 
-        SearchEngine  searchEngine = new SearchEngine(5);
+        SearchEngine searchEngine = new SearchEngine(5);
         searchEngine.add(wire);
         searchEngine.add(reebokPants);
         searchEngine.add(reebokTapki);
         searchEngine.add(tea);
-        searchEngine.add( product1);
+        searchEngine.add(product1);
 
         System.out.println(Arrays.toString(searchEngine.search("Reebok")));
 
@@ -151,6 +149,36 @@ public class App {
         System.out.println(Arrays.toString(searchArticle.search("Полка")));
         System.out.println(Arrays.toString(searchArticle.search("шкафа")));
 
+        try {
+            SimpleProduct safeMED = new SimpleProduct("SafeMED", -100);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            DiscountedProduct safeMED = new DiscountedProduct("Safe", -3,15);
+        }catch (IllegalArgumentException e){
+            System.out.println((e));
+        }try {
+            DiscountedProduct safeMED = new DiscountedProduct("Snikers", 100,-2);
+        }catch (IllegalArgumentException e){
+            System.out.println((e));
+        }
+        System.out.println(" ");
+
+        SearchEngine searchEngine1 = new SearchEngine(5);
+//        reebokPants = null;// переключать для теста
+        SimpleProduct rerere = new SimpleProduct("ReefReekReel",300);
+        searchEngine1.add(wire);
+        searchEngine1.add(reebokTapki);
+        searchEngine1.add(tea);
+        searchEngine1.add(rerere);
+        searchEngine1.add(reebokPants);
+        try {
+            System.out.println("bestResultFound = " + searchEngine1.bestResultFound("Ree"));
+
+        }catch (BestResultNotFound e){
+            System.out.println(e);
+        }
 
 
 
