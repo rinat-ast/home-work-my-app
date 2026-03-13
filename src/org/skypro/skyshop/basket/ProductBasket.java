@@ -1,6 +1,7 @@
 package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
 
 import java.sql.SQLOutput;
 
@@ -53,7 +54,8 @@ public class ProductBasket {
 //   но печатает в консоль сообщение:
     public void printInfoAboutBasket() {
         System.out.println("ProductBasket.printInfoAboutBasket");
-        int totalSum = 0;
+        int countSpecialProducts = 0;//для подсчёта спец.товаров
+        int totalSum = 0;//для подсчёта суммы всей корзины
         int count = basket.length;
         for (int i = 0; i < basket.length; i++) {
             if (basket[i] == null) {
@@ -61,7 +63,11 @@ public class ProductBasket {
                 count -= 1;
                 continue;
             }
-            System.out.println(basket[i].getName() + " : " + basket[i].getPrice());
+            if (basket[i].isSpecial()){
+//            if (basket[i].getClass() != SimpleProduct.class) {так можно было?
+                countSpecialProducts += 1;
+            }
+            System.out.println(basket[i]);
             totalSum += basket[i].getPrice();
         }
         if (count == 0) {
@@ -70,6 +76,7 @@ public class ProductBasket {
             System.out.println("Итого: " + totalSum);
 
         }
+        System.out.println("Кол-во спец. товаров " + countSpecialProducts);
     }
 
     // 4  Метод, проверяющий продукт в корзине по имени:
@@ -90,14 +97,14 @@ public class ProductBasket {
     }
 
 
-// 5  Метод очистки корзины: метод ничего не принимает и очищает массив,
+    // 5  Метод очистки корзины: метод ничего не принимает и очищает массив,
 //    проставляя всем его элементам null
-public void cleanTheBasket() {
-    System.out.println("ProductBasket.cleanTheBasket");
-    for (int i = 0; i < basket.length; i++) {
-        basket[i] = null;
+    public void cleanTheBasket() {
+        System.out.println("ProductBasket.cleanTheBasket");
+        for (int i = 0; i < basket.length; i++) {
+            basket[i] = null;
 
+        }
     }
-}
 
 }

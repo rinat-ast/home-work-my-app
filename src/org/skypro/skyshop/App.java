@@ -1,8 +1,9 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.*;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class App {
@@ -14,20 +15,21 @@ public class App {
     public static Product[] initialProducts() {
         Product[] local = new Product[random.nextInt(5, 7)];
         for (int i = 0; i < local.length; i++) {
-            local[i] = new Product(namesOfProduct[random.nextInt(0, namesOfProduct.length - 1)], random.nextInt(125, 500));
+            local[i] = new SimpleProduct(namesOfProduct[random.nextInt(0, namesOfProduct.length - 1)], random.nextInt(125, 500));
         }
         return local;
     }
+
 
     public static void main() {
 //        Добавление продукта в корзину. 1
         Product[] randomBasket = initialProducts();
         Product[] notRandomBasket = new Product[5];
-        Product product1 = new Product("Папа может ", 320);
-        Product product2 = new Product("Булка столичная ", 32);
-        Product product3 = new Product("Майонез Махеев", 120);
-        Product product4 = new Product("Чай Greenfield 100пак", 320);
-        Product product5 = new Product("Конфеты RotFront 0.5кг ", 250);
+        Product product1 = new SimpleProduct("Папа может ", 320);
+        Product product2 = new SimpleProduct("Булка столичная ", 32);
+        Product product3 = new SimpleProduct("Майонез Махеев", 120);
+        Product product4 = new SimpleProduct("Чай Greenfield 100пак", 320);
+        Product product5 = new SimpleProduct("Конфеты RotFront 0.5кг ", 250);
 //        Добавление продукта в корзину. 1
         notRandomBasket[0] = product1;
         notRandomBasket[1] = product2;
@@ -46,18 +48,18 @@ public class App {
         System.out.println(" ");
 
         System.out.println("Добавление продукта в заполненную корзину, в которой нет свободного места");
-        basketRandomType.addProductInTheBasket(new Product("Столичная", 300));
+        basketRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
         System.out.println(" ");
 
         randomBasket[3] = null;
 
         System.out.println("------------Добавление продукта в корзину.-------------1");
-        basketRandomType.addProductInTheBasket(new Product("Столичная", 300));
+        basketRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
         basketRandomType.printInfoAboutBasket();
         System.out.println(" ");
 
         System.out.println("Добавление продукта в заполненную корзину, в которой нет свободного места");
-        basketNotRandomType.addProductInTheBasket(new Product("Столичная", 300));
+        basketNotRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
         System.out.println(" ");
 
         notRandomBasket[3] = null;
@@ -67,7 +69,7 @@ public class App {
         System.out.println(" ");
 
         System.out.println("------------Добавление продукта в корзину.-------------1");
-        basketNotRandomType.addProductInTheBasket(new Product("Столичная", 300));
+        basketNotRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
         System.out.println(" ");
 
         System.out.println("basketNotRandomType. полная стоимость = " + basketNotRandomType.totalSumPriceOfBasket());
@@ -103,6 +105,81 @@ public class App {
 
         System.out.println("------Поиск товара по имени в пустой корзине------10");
         System.out.println("Дядя Ваня = " + basketRandomType.checkProductInTheBasket("Дядя Ваня "));
+        System.out.println(" ");
+
+        DiscountedProduct reebokTapki = new DiscountedProduct("Шлёпки Reebok", 2000, 50);
+        DiscountedProduct reebokPants = new DiscountedProduct("Шорты Reebok", 3000, 50);
+        FixPriceProduct wire = new FixPriceProduct("Зарядка");
+        FixPriceProduct tea = new FixPriceProduct("Чай");
+
+        randomBasket[0] = reebokPants;
+        randomBasket[1] = reebokTapki;
+        randomBasket[2] = wire;
+        randomBasket[3] = tea;
+        randomBasket[4] = product1;
+
+        System.out.println("-Печать содержимого корзины с разными товарами товарами.---3");
+        basketRandomType.printInfoAboutBasket();
+
+//        System.out.println("wire.getStringRepresentation(wire) = " + wire.getStringRepresentation(wire));
+
+        SearchEngine searchEngine = new SearchEngine(5);
+        searchEngine.add(wire);
+        searchEngine.add(reebokPants);
+        searchEngine.add(reebokTapki);
+        searchEngine.add(tea);
+        searchEngine.add(product1);
+
+        System.out.println(Arrays.toString(searchEngine.search("Reebok")));
+
+        Article article = new Article("Объявление:", "Ручка от шкафа");
+        Article article2 = new Article("Объявление:", "Полка от комода");
+        Article article3 = new Article("Объявление:", "Ручка от двери");
+        Article article4 = new Article("Объявление:", "Ручка от комода");
+        Article article5 = new Article("Объявление:", "Полка от шкафа");
+
+        SearchEngine searchArticle = new SearchEngine(5);
+        searchArticle.add(tea);
+        searchArticle.add(article2);
+        searchArticle.add(article5);
+        searchArticle.add(article);
+        searchArticle.add(wire);
+
+        System.out.println(Arrays.toString(searchArticle.search("Ручка")));
+        System.out.println(Arrays.toString(searchArticle.search("Полка")));
+        System.out.println(Arrays.toString(searchArticle.search("шкафа")));
+
+        try {
+            SimpleProduct safeMED = new SimpleProduct("SafeMED", -100);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            DiscountedProduct safeMED = new DiscountedProduct("Safe", -3,15);
+        }catch (IllegalArgumentException e){
+            System.out.println((e));
+        }try {
+            DiscountedProduct safeMED = new DiscountedProduct("Snikers", 100,-2);
+        }catch (IllegalArgumentException e){
+            System.out.println((e));
+        }
+        System.out.println(" ");
+
+        SearchEngine searchEngine1 = new SearchEngine(5);
+//        reebokPants = null;// переключать для теста
+        SimpleProduct rerere = new SimpleProduct("ReefReekReel",300);
+        searchEngine1.add(wire);
+        searchEngine1.add(reebokTapki);
+        searchEngine1.add(tea);
+        searchEngine1.add(rerere);
+        searchEngine1.add(reebokPants);
+        try {
+            System.out.println("bestResultFound = " + searchEngine1.bestResultFound("Ree"));
+
+        }catch (BestResultNotFound e){
+            System.out.println(e);
+        }
+
 
 
     }
