@@ -11,7 +11,7 @@ public class Article implements Searchable {
 
     @Override
     public String toString() {
-        return name + "\n " + text +  "\n ";
+        return name + " " + text +  " ";
     }
 
     @Override

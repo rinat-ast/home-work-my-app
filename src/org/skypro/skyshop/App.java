@@ -1,21 +1,22 @@
 package org.skypro.skyshop;
-
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
-
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class App {
 
     static Random random = new Random();
 
-    public static String[] namesOfProduct = {"Простоквашино ", "Дядя Ваня ", "Столичная ", "Рафаелло ", "Киндер сюрприз ", "Хлеб ", "Мистер Рико "};
+    public static LinkedList<String> namesOfProduct = new LinkedList<>(Arrays.asList(
+            "Простоквашино ", "Дядя Ваня ", "Столичная ", "Рафаелло ", "Киндер сюрприз ", "Хлеб ", "Мистер Рико "));
 
-    public static Product[] initialProducts() {
-        Product[] local = new Product[random.nextInt(5, 7)];
-        for (int i = 0; i < local.length; i++) {
-            local[i] = new SimpleProduct(namesOfProduct[random.nextInt(0, namesOfProduct.length - 1)], random.nextInt(125, 500));
+    public static LinkedList<Product> initialProducts() {
+        LinkedList<Product> local = new LinkedList<>();
+        for (int i = 0; i < 5 ; i++) {
+            local.add(new SimpleProduct(namesOfProduct.get(random.nextInt(0, namesOfProduct.size())), random.nextInt(50,250)));
+
         }
         return local;
     }
@@ -23,19 +24,19 @@ public class App {
 
     public static void main() {
 //        Добавление продукта в корзину. 1
-        Product[] randomBasket = initialProducts();
-        Product[] notRandomBasket = new Product[5];
+        LinkedList<Product> randomBasket = initialProducts();
+        LinkedList<Product> notRandomBasket = new LinkedList<Product>();
         Product product1 = new SimpleProduct("Папа может ", 320);
         Product product2 = new SimpleProduct("Булка столичная ", 32);
         Product product3 = new SimpleProduct("Майонез Махеев", 120);
         Product product4 = new SimpleProduct("Чай Greenfield 100пак", 320);
         Product product5 = new SimpleProduct("Конфеты RotFront 0.5кг ", 250);
 //        Добавление продукта в корзину. 1
-        notRandomBasket[0] = product1;
-        notRandomBasket[1] = product2;
-        notRandomBasket[2] = product3;
-        notRandomBasket[3] = product4;
-        notRandomBasket[4] = product5;
+        notRandomBasket.add(product1);
+        notRandomBasket.add(product2);
+        notRandomBasket.add(product3);
+        notRandomBasket.add(product4);
+        notRandomBasket.add(product5);
 
         System.out.println("---Объявили объект класса ProductBasket-------");
         ProductBasket basketNotRandomType = new ProductBasket("Bob", notRandomBasket);
@@ -47,30 +48,30 @@ public class App {
         basketRandomType.printInfoAboutBasket();
         System.out.println(" ");
 
-        System.out.println("Добавление продукта в заполненную корзину, в которой нет свободного места");
-        basketRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
-        System.out.println(" ");
+//        System.out.println("Добавление продукта в заполненную корзину, в которой нет свободного места");
+//        basketRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
+//        System.out.println(" ");
 
-        randomBasket[3] = null;
 
-        System.out.println("------------Добавление продукта в корзину.-------------1");
-        basketRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
-        basketRandomType.printInfoAboutBasket();
-        System.out.println(" ");
 
-        System.out.println("Добавление продукта в заполненную корзину, в которой нет свободного места");
-        basketNotRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
-        System.out.println(" ");
+//        System.out.println("------------Добавление продукта в корзину.-------------1");
+//        basketRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
+//        basketRandomType.printInfoAboutBasket();
+//        System.out.println(" ");
+//
+//        System.out.println("Добавление продукта в заполненную корзину, в которой нет свободного места");
+//        basketNotRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
+//        System.out.println(" ");
 
-        notRandomBasket[3] = null;
+
 
         System.out.println("-Печать содержимого корзины с несколькими товарами.---3");
         basketNotRandomType.printInfoAboutBasket();
         System.out.println(" ");
 
-        System.out.println("------------Добавление продукта в корзину.-------------1");
-        basketNotRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
-        System.out.println(" ");
+//        System.out.println("------------Добавление продукта в корзину.-------------1");
+//        basketNotRandomType.addProductInTheBasket(new SimpleProduct("Столичная", 300));
+//        System.out.println(" ");
 
         System.out.println("basketNotRandomType. полная стоимость = " + basketNotRandomType.totalSumPriceOfBasket());
         System.out.println(" ");
@@ -111,26 +112,27 @@ public class App {
         DiscountedProduct reebokPants = new DiscountedProduct("Шорты Reebok", 3000, 50);
         FixPriceProduct wire = new FixPriceProduct("Зарядка");
         FixPriceProduct tea = new FixPriceProduct("Чай");
+        randomBasket.add(reebokPants);
+        randomBasket.add(reebokTapki);
+        randomBasket.add(wire);
+        randomBasket.add(tea);
+        randomBasket.add(product1);
 
-        randomBasket[0] = reebokPants;
-        randomBasket[1] = reebokTapki;
-        randomBasket[2] = wire;
-        randomBasket[3] = tea;
-        randomBasket[4] = product1;
 
         System.out.println("-Печать содержимого корзины с разными товарами товарами.---3");
         basketRandomType.printInfoAboutBasket();
+        System.out.println(" ");
 
 //        System.out.println("wire.getStringRepresentation(wire) = " + wire.getStringRepresentation(wire));
+        LinkedList<Searchable> list1 = new LinkedList<>();
+        list1.add(product3);
+        list1.add(reebokPants);
+        list1.add(reebokTapki);
+        list1.add(tea);
+        list1.add(product1);
+        SearchEngine searchEngine = new SearchEngine(list1);
 
-        SearchEngine searchEngine = new SearchEngine(5);
-        searchEngine.add(wire);
-        searchEngine.add(reebokPants);
-        searchEngine.add(reebokTapki);
-        searchEngine.add(tea);
-        searchEngine.add(product1);
-
-        System.out.println(Arrays.toString(searchEngine.search("Reebok")));
+        System.out.println("searchEngine.search(\"Reebok\") = " + searchEngine.search("Reebok"));
 
         Article article = new Article("Объявление:", "Ручка от шкафа");
         Article article2 = new Article("Объявление:", "Полка от комода");
@@ -138,16 +140,25 @@ public class App {
         Article article4 = new Article("Объявление:", "Ручка от комода");
         Article article5 = new Article("Объявление:", "Полка от шкафа");
 
-        SearchEngine searchArticle = new SearchEngine(5);
-        searchArticle.add(tea);
-        searchArticle.add(article2);
-        searchArticle.add(article5);
-        searchArticle.add(article);
-        searchArticle.add(wire);
+        LinkedList<Searchable> list2 = new LinkedList<>();
+        list2.add(tea);
+        list2.add(article2);
+        list2.add(article5);
+        list2.add(article);
+        list2.add(wire);
+        SearchEngine searchArticle = new SearchEngine(list2);
 
-        System.out.println(Arrays.toString(searchArticle.search("Ручка")));
-        System.out.println(Arrays.toString(searchArticle.search("Полка")));
-        System.out.println(Arrays.toString(searchArticle.search("шкафа")));
+        System.out.println("searchArticle = " + searchArticle);
+        System.out.println(" ");
+
+        System.out.println("searchArticle.search(\"Ручка\") = " + searchArticle.search("Ручка"));
+        System.out.println(" ");
+
+        System.out.println("searchArticle.search(\"Полка\") = " + searchArticle.search("Полка"));
+        System.out.println(" ");
+
+        System.out.println("searchArticle.search(\"шкафа\") = " + searchArticle.search("шкафа"));
+        System.out.println(" ");
 
         try {
             SimpleProduct safeMED = new SimpleProduct("SafeMED", -100);
@@ -165,20 +176,40 @@ public class App {
         }
         System.out.println(" ");
 
-        SearchEngine searchEngine1 = new SearchEngine(5);
 //        reebokPants = null;// переключать для теста
         SimpleProduct rerere = new SimpleProduct("ReefReekReel",300);
-        searchEngine1.add(wire);
-        searchEngine1.add(reebokTapki);
-        searchEngine1.add(tea);
-        searchEngine1.add(rerere);
-        searchEngine1.add(reebokPants);
+        LinkedList<Searchable> list3 = new LinkedList<>();
+        list3.add(wire);
+        list3.add(reebokTapki);
+        list3.add(tea);
+        list3.add(rerere);
+        list3.add(reebokPants);
+        SearchEngine searchEngine1 = new SearchEngine(list3);
+
         try {
             System.out.println("bestResultFound = " + searchEngine1.bestResultFound("Ree"));
 
         }catch (BestResultNotFound e){
             System.out.println(e);
         }
+
+        basketRandomType.printInfoAboutBasket();
+        System.out.println(" ");
+
+        basketRandomType.removeProduct("Чай май");//тут вывод пустого списка
+        System.out.println(" ");
+
+        basketRandomType.removeProduct("Чай");
+
+        basketRandomType.printInfoAboutBasket();
+        System.out.println(" ");
+
+
+        basketRandomType.advancedRemoveProduct("Reebok");
+        basketRandomType.printInfoAboutBasket();
+
+
+
 
 
 
