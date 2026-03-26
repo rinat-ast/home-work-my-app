@@ -1,6 +1,9 @@
 package org.skypro.skyshop.product;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchEngine {
     private LinkedList<Searchable> list;
@@ -20,28 +23,36 @@ public class SearchEngine {
         return "SearchEngine. Список: " + list;
     }
 
-
-//    @Override
-//    public String toString() {
-//        return "super.toString()";
-//    }
 //            Принимает в себя строку для поиска и возвращает 5 результатов
 //            поиска по массиву Searchable в виде массива из 5 элементов.
 //           <-- Внимание!!! Изменение логики метода!!! -->
 //            Измените метод поиска: он должен возвращать *все*
 //            подходящие результаты (а не 5 результатов, как раньше).
 
-    public LinkedList<Searchable> search(String text) {
-        System.out.println("SearchEngine.search");
-        LinkedList<Searchable> result = new LinkedList<>();
+//    public HashMap<String,LinkedList<Product>> search(String text) {
+//        System.out.println("SearchEngine.search");
+//        HashMap<String,LinkedList<Product>> result = new HashMap<>();
+//        for (Searchable search : list) {
+//            if (search.getSearchTerm().contains(text)) {
+//                result.put(search);
+//            }
+//        }
+//        return result;
+//    }
 
-        for (Searchable search : list) {
-            if (search.getSearchTerm().contains(text)) {
-                result.add(search);
+public TreeMap<String, LinkedList<Searchable>> searchAndSort(String text) {
+    TreeMap<String, LinkedList<Searchable>> localList = new TreeMap<>();
+    for (Searchable search : list) {
+        if (search.getSearchTerm().contains(text)) {
+            String key = search.getSearchTerm();
+            if (!localList.containsKey(key)) {
+                localList.put(key, new LinkedList<>()); // создаём пустой список для ключа
             }
+            localList.get(key).add(search); // добавляем объект в список
         }
-        return result;
     }
+    return localList;
+}
     // этот метод нужен при Linkedlist поле?
     public void add(Searchable searchable) {
         for (Searchable room : list) {
@@ -49,7 +60,6 @@ public class SearchEngine {
                 room = searchable;
             }
         }
-
     }
 
 //     Реализуйте в классе SearchEngine метод, который находит среди объектов Searchable
