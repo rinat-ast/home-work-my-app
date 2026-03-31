@@ -100,14 +100,11 @@ public class ProductBasket {
 //   Метод должен принимать строку name и возвращать список (List) удаленных продуктов.
 //    Если продукта нет в корзине, то возвращаемый список должен быть пустым.
 
-    public boolean removeProduct(String Key) {
-        if (basket.containsKey(Key)) {
-            basket.remove(Key);
-            return true;
+    public void removeProduct(String key) {
+        if (basket.containsKey(key)) {
+            basket.remove(key);
         }
-        return false;
     }
-
 
     public LinkedList<Product> advancedRemoveProduct(String name) {
         System.out.println("ProductBasket.advancedRemoveProduct");

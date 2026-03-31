@@ -1,6 +1,6 @@
 package org.skypro.skyshop.product;
 
- public interface Searchable {
+ public interface Searchable extends Comparable<Searchable> {
 
     String getSearchTerm();
 
@@ -11,5 +11,4 @@ package org.skypro.skyshop.product;
     }
 
 
-
-}
+ }

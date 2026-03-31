@@ -1,18 +1,13 @@
 package org.skypro.skyshop.product;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SearchEngine {
-    private LinkedList<Searchable> list;
-//    private final static int SIZE = 5;
+    private HashSet<Searchable> list;
 
-    public SearchEngine(LinkedList<Searchable> listS) {
-        this.list = listS;
+    public SearchEngine(HashSet list) {
+        this.list = list;
     }
-
 
 //    public SearchEngine() {
 //        this.list = new LinkedList<>();
@@ -40,19 +35,31 @@ public class SearchEngine {
 //        return result;
 //    }
 
-public TreeMap<String, LinkedList<Searchable>> searchAndSort(String text) {
-    TreeMap<String, LinkedList<Searchable>> localList = new TreeMap<>();
-    for (Searchable search : list) {
-        if (search.getSearchTerm().contains(text)) {
-            String key = search.getSearchTerm();
-            if (!localList.containsKey(key)) {
-                localList.put(key, new LinkedList<>()); // создаём пустой список для ключа
+    public TreeSet<Searchable> searchAndSort(String text) {
+        // Шаг 1. Фильтрация: собираем элементы, содержащие искомый текст
+        List<Searchable> localList = new ArrayList<>();
+        for (Searchable search : list) {
+            if (search.getSearchTerm().contains(text)) {
+                localList.add(search);
             }
-            localList.get(key).add(search); // добавляем объект в список
         }
+        return new TreeSet<>(localList);
     }
-    return localList;
-}
+//    public TreeMap<String, LinkedList<Searchable>> searchAndSort(String text) {
+//        TreeMap<String, LinkedList<Searchable>> localList = new TreeMap<>();
+//        for (Searchable search : list) {
+//            if (search.getSearchTerm().contains(text)) {
+//                String key = search.getSearchTerm();
+//                if (!localList.containsKey(key)) {
+//                    localList.put(key, new LinkedList<>()); // создаём пустой список для ключа
+//                }
+//                localList.get(key).add(search); // добавляем объект в список
+//            }
+//        }
+//        return localList;
+//}
+
+
     // этот метод нужен при Linkedlist поле?
     public void add(Searchable searchable) {
         for (Searchable room : list) {

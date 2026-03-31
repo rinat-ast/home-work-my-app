@@ -131,7 +131,7 @@ public class App {
         System.out.println(" ");
 
 //        System.out.println("wire.getStringRepresentation(wire) = " + wire.getStringRepresentation(wire));
-        LinkedList<Searchable> list1 = new LinkedList<>();
+        HashSet <Searchable>  list1 = new HashSet();
         list1.add(product3);
         list1.add(reebokPants);
         list1.add(reebokTapki);
@@ -147,7 +147,7 @@ public class App {
         Article article4 = new Article("Объявление:", "Ручка от комода");
         Article article5 = new Article("Объявление:", "Полка от шкафа");
 
-        LinkedList<Searchable> list2 = new LinkedList<>();
+        HashSet <Searchable>  list2 = new HashSet();
         list2.add(tea);
         list2.add(article2);
         list2.add(article5);
@@ -186,7 +186,7 @@ public class App {
 
 //        reebokPants = null;// переключать для теста
         SimpleProduct rerere = new SimpleProduct("ReefReekReel", 300);
-        LinkedList<Searchable> list3 = new LinkedList<>();
+        HashSet <Searchable>  list3 = new HashSet();
         list3.add(wire);
         list3.add(reebokTapki);
         list3.add(tea);
@@ -270,8 +270,8 @@ public class App {
         DiscountedProduct reebokAsher = new DiscountedProduct("Ашер толстовка с молнией Reebok", 2000, 50);
         DiscountedProduct reebokTshort = new DiscountedProduct("Футболка Reebok", 2000, 50);
         DiscountedProduct reebokBootcut = new DiscountedProduct("Женские брюки Reebok", 2000, 50);
-        DiscountedProduct reebokGlasses = new DiscountedProduct("Очки Reebok", 3000, 50);
-        LinkedList<Searchable> list100 = new LinkedList<>();
+        DiscountedProduct reebokGlasses = new DiscountedProduct("Очки Стотыщмильёнсимволов Reebok", 3000, 50);
+        HashSet <Searchable>  list100 = new HashSet();
         list100.add(wire);
         list100.add(tea);
         list100.add(reebokPants);
@@ -285,6 +285,14 @@ public class App {
         SearchEngine searchEngine100 = new SearchEngine(list100);
         System.out.println("searchEngine100 = " + searchEngine100);
         System.out.println("searchAndSort = " + searchEngine100.searchAndSort("Reebok"));
+        list100.add(new Article("Как не взорвать себе мозг при изучении Джавы?", "Юзай ИИ"));
+        list100.add(new Article("Как найти время на ВСЁ?", "Приоритеты наше всё"));
+        System.out.println("searchAndSort = " + searchEngine100.searchAndSort("Как"));
+        list100.add(new Article("Как найти время на ВСЁ!", "Приоритеты наше всё"));
+        list100.add(new Article("Как?", "А ты подумай"));
+        list100.add(new Article("Как!", "А вот так"));
+        System.out.println("searchAndSort = " + searchEngine100.searchAndSort("Как"));
+
 
 
     }

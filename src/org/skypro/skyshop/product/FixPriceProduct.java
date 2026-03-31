@@ -1,5 +1,6 @@
 package org.skypro.skyshop.product;
 
+import java.util.Objects;
 import java.util.Queue;
 
 public class FixPriceProduct extends Product  {
@@ -22,5 +23,21 @@ public class FixPriceProduct extends Product  {
     public boolean isSpecial() {
         return true;
     }
+    @Override
+    public boolean equals(Object o) {
+        if(this ==o) return true;
+        if(o == null || !this.getClass().equals(o.getClass())){
+            return false;
+        }
+        FixPriceProduct product = (FixPriceProduct)o;
+        return Objects.equals(getName(),product.getName());
+
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode());
+    }
+
+
 }
 
