@@ -9,10 +9,6 @@ public class SearchEngine {
         this.list = list;
     }
 
-//    public SearchEngine() {
-//        this.list = new LinkedList<>();
-//    }
-
     @Override
     public String toString() {
         return "SearchEngine. Список: " + list;
@@ -36,37 +32,31 @@ public class SearchEngine {
 //    }
 
     public TreeSet<Searchable> searchAndSort(String text) {
-        // Шаг 1. Фильтрация: собираем элементы, содержащие искомый текст
-        List<Searchable> localList = new ArrayList<>();
+        TreeSet<Searchable> result = new TreeSet<>(new Comparator<Searchable>() {
+            @Override
+            public int compare(Searchable s1, Searchable s2) {
+                int lengthComp = Integer.compare
+                        (s2.getSearchTerm().length(), s1.getSearchTerm().length());
+                if (lengthComp != 0) {
+                    return lengthComp;
+                }
+                return s1.getSearchTerm().compareTo(s2.getSearchTerm());
+            }
+        });
         for (Searchable search : list) {
             if (search.getSearchTerm().contains(text)) {
-                localList.add(search);
+                result.add(search);
             }
         }
-        return new TreeSet<>(localList);
+        return result;
     }
-//    public TreeMap<String, LinkedList<Searchable>> searchAndSort(String text) {
-//        TreeMap<String, LinkedList<Searchable>> localList = new TreeMap<>();
-//        for (Searchable search : list) {
-//            if (search.getSearchTerm().contains(text)) {
-//                String key = search.getSearchTerm();
-//                if (!localList.containsKey(key)) {
-//                    localList.put(key, new LinkedList<>()); // создаём пустой список для ключа
-//                }
-//                localList.get(key).add(search); // добавляем объект в список
-//            }
-//        }
-//        return localList;
-//}
+
+
 
 
     // этот метод нужен при Linkedlist поле?
     public void add(Searchable searchable) {
-        for (Searchable room : list) {
-            if (room == null) {
-                room = searchable;
-            }
-        }
+                list.add(searchable);
     }
 
 //     Реализуйте в классе SearchEngine метод, который находит среди объектов Searchable

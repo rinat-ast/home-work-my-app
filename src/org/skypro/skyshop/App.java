@@ -292,6 +292,16 @@ public class App {
         list100.add(new Article("Как?", "А ты подумай"));
         list100.add(new Article("Как!", "А вот так"));
         System.out.println("searchAndSort = " + searchEngine100.searchAndSort("Как"));
+        System.out.println("searchEngine100 = " + searchEngine100);
+        searchEngine100.add(product1);
+        System.out.println("product1 = " + product1);
+
+        System.out.println("searchEngine100 = " + searchEngine100);
+
+
+            
+        
+
 
 
 

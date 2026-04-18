@@ -3,7 +3,7 @@ package org.skypro.skyshop.product;
 
 import java.util.Objects;
 
-public abstract class Product implements Searchable,Comparable<Searchable> {
+public abstract class Product implements Searchable {
     private final String name;
 
     public Product(String name) {
@@ -44,13 +44,13 @@ public abstract class Product implements Searchable,Comparable<Searchable> {
     }
 
 
-    @Override
-    public int compareTo(Searchable other) {
-        int lengthComp = Integer.compare
-                (other.getSearchTerm().length(), this.getSearchTerm().length());
-        if (lengthComp != 0) {
-            return lengthComp;
-        }
-        return this.getSearchTerm().compareTo(other.getSearchTerm());
-    }
+//    @Override
+//    public int compareTo(Searchable other) {
+//        int lengthComp = Integer.compare
+//                (other.getSearchTerm().length(), this.getSearchTerm().length());
+//        if (lengthComp != 0) {
+//            return lengthComp;
+//        }
+//        return this.getSearchTerm().compareTo(other.getSearchTerm());
+//    }
 }

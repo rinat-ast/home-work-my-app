@@ -56,13 +56,13 @@ public class Article  implements Searchable  {
         return Objects.hashCode(name);
     }
 
-    @Override
-    public int compareTo(Searchable other) {
-        int lengthComp = Integer.compare
-                (other.getSearchTerm().length(), this.getSearchTerm().length());
-        if (lengthComp != 0) {
-            return lengthComp;
-        }
-        return this.getSearchTerm().compareTo(other.getSearchTerm());
-    }
+//    @Override
+//    public int compareTo(Searchable other) {
+//        int lengthComp = Integer.compare
+//                (other.getSearchTerm().length(), this.getSearchTerm().length());
+//        if (lengthComp != 0) {
+//            return lengthComp;
+//        }
+//        return this.getSearchTerm().compareTo(other.getSearchTerm());
+//    }
 }
