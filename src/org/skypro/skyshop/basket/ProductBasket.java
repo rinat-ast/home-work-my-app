@@ -2,10 +2,9 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ProductBasket {
     private String customer;
@@ -20,6 +19,14 @@ public class ProductBasket {
         return basket;
     }
 
+    @Override
+    public String toString() {
+        return "ProductBasket{" +
+                "customer = " + customer +
+                ", basket = " + basket +
+                '}';
+    }
+
     //     1   Метод добавления продукта в корзину:
 //     метод принимает в себя продукт и ничего не возвращает.
     public void addProductInTheBasket(Product product) {
@@ -32,14 +39,35 @@ public class ProductBasket {
 //    метод ничего не принимает и возвращает целое число.
 
     public int totalSumPriceOfBasket() {
+        System.out.println("===========" + this + "============");
         System.out.println("ProductBasket.totalSumPriceOfBasket");
-        int totalSum = 0;
-        for (Map.Entry<String, LinkedList<Product>> keyName : basket.entrySet()) {
-            for (Product product : keyName.getValue()) {
-                totalSum += product.getPrice();
-            }
-        }
-        return totalSum;
+        return getBasket().values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
+
+    }
+
+    public void printBasketInfo() {
+        System.out.println("========" + this + "=========");
+        System.out.println("ProductBasket.printBasketInfo");
+         boolean isBasketEmpty = basket.values().stream()
+                    .flatMap(Collection::stream)
+                    .findAny()
+                    .isEmpty();
+         if (isBasketEmpty){
+             System.out.println("Корзина пуста");
+         }else {
+             System.out.println("Полная стоимость корзины = " + totalSumPriceOfBasket());
+             System.out.println("Количество спец товаров = " + getSpecialCount());
+         }
+    }
+
+    private long getSpecialCount() {
+          return  basket.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     // 3 Метод, который печатает содержимое корзины:
@@ -71,11 +99,12 @@ public class ProductBasket {
         System.out.println("Кол-во спец. товаров " + countSpecialProducts);
     }
 
-//    4  Метод, проверяющий продукт в корзине по имени:
+    //    4  Метод, проверяющий продукт в корзине по имени:
 //    метод принимает в себя строку имени и возвращает boolean
 //    в зависимости от того, есть продукт в корзине или его нет.
     public boolean checkProductInTheBasket(String productName) {
         System.out.println("ProductBasket.checkProductInTheBasket");
+
         for (Map.Entry<String, LinkedList<Product>> pr : basket.entrySet()) {
             for (Product product : pr.getValue()) {
                 if (product == null) {

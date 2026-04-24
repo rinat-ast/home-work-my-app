@@ -298,10 +298,25 @@ public class App {
 
         System.out.println("searchEngine100 = " + searchEngine100);
 
+        System.out.println("mapNotR.totalSumPriceOfBasket() = " + mapNotR.totalSumPriceOfBasket());
+        System.out.println("basketRandomType.totalSumPriceOfBasket() = " + basketRandomType.totalSumPriceOfBasket());
+        System.out.println("basketNotRandomType = " + basketRandomType);
 
-            
-        
 
+//      проверка работы addProductInTheBasket и totalSumPriceOfBasket
+        ProductBasket streamBasket = new ProductBasket("roof",new HashMap<>());
+        streamBasket.addProductInTheBasket(reebokTapki);
+        streamBasket.addProductInTheBasket(reebokPants);
+        streamBasket.addProductInTheBasket(reebokPants);
+        streamBasket.addProductInTheBasket(reebokAsher);
+        streamBasket.addProductInTheBasket(product1);
+        System.out.println("streamBasket = " + streamBasket);
+        System.out.println("streamBasket.totalSumPriceOfBasket() = " + streamBasket.totalSumPriceOfBasket());
+        streamBasket.printBasketInfo();
+        ProductBasket streamBasket2 = new ProductBasket("roof",new HashMap<>());
+
+//      Вызов метода на пустую корзину
+        streamBasket2.printBasketInfo();
 
 
 
